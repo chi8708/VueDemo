@@ -1,0 +1,159 @@
+<!-- https://cn.vuejs.org/v2/guide/ 介绍实例 -->
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+    <script src="https://unpkg.com/vue"></script>
+    <style type="text/css">
+        h6 {
+            margin: 5px 0px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <h6>{{}}绑定数据</h6>
+    <div id="app">
+        {{message}}
+    </div>
+
+    <h6>v-bind</h6>
+    <div id="app-2">
+        <span v-bind:title="message">
+            鼠标悬停几秒钟查看此处动态绑定的提示信息！
+        </span>
+    </div>
+
+    <h6>v-if</h6>
+    <div id="app-3">
+        <span v-if="seen">
+            现在我看到你啦
+        </span>
+    </div>
+
+    <h6>v-for</h6>
+    <div id="app-4">
+        <span v-for="item in list" style="display:block">
+            {{item.text}}
+        </span>
+    </div>
+
+    <h6>v-on</h6>
+    <div id="app-5">
+        <p>{{message}}</p>
+        <button v-on:click="reverseMessage">消息逆转</button>
+    </div>
+
+    <h6>v-model</h6>
+    <div id="app-6">
+        <p>{{message}}</p>
+        <input type="text" v-model="message" />
+    </div>
+
+    <h6>Vue.component组件化</h6>
+    <div id="app-7">
+        <ol>
+            <todo-item></todo-item>
+        </ol>
+    </div>
+  
+    <h6>Vue.component组件化数据传递</h6>
+    <div id="app-8">
+        <ol>
+            <hobby-item v-for="item in hobbys"
+            v-bind:hobby="item"
+            v-bind:key="item.id"
+            >
+            </hobby-item>
+        </ol>
+    </div>
+</body>
+
+<script type="text/javascript">
+    //{{}}绑定数据
+    var app = new Vue({
+        el: "#app",
+        data: {
+            message: "hello vue"
+        }
+    });
+
+    //v-bind
+    var app2 = new Vue({
+        el: "#app-2",
+        data: {
+            message: "页面依赖于" + new Date().toLocaleString()
+        }
+    });
+
+    //v-if
+    var app3 = new Vue({
+        el: "#app-3",
+        data: {
+            seen: true
+        }
+    });
+
+    //v-for
+    var app4 = new Vue({
+        el: "#app-4",
+        data: {
+            list: [
+                { text: "学习JavaScript" },
+                { text: "学习Vue" },
+            ]
+        }
+    })
+
+    //v-onclick
+    var app5 = new Vue({
+        el: "#app-5",
+        data: {
+            message: "hello vue.js"
+        },
+        methods: {
+            reverseMessage: function () {
+                this.message = this.message.split(' ').reverse().join(' '); //join 默认','号
+            }
+        }
+    })
+
+    //v-model 数据双向绑定
+    var app6 = new Vue({
+        el: "#app-6",
+        data: {
+            message: "hello vue"
+        }
+    })
+
+    // 定义名为 todo-item 的新组件
+    Vue.component('todo-item', {
+        template: '<li>这是个待办项</li>'
+    })
+    var app7=new Vue({
+        el:"#app-7"
+    })
+
+    //Vue.component组件化数据传递
+    Vue.component('hobby-item', {
+        props:['hobby'],
+        template: '<li>{{hobby.text}}</li>'
+    })
+    var app8=new Vue({
+        el:'#app-8',
+        data:{
+            hobbys:[{id:0,text:'足球'},{id:1,text:'篮球'},{id:2,text:'登山'}]
+        }
+    })
+
+</script>
+
+</html>
