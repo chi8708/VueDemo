@@ -167,7 +167,8 @@
     var obj = {
         foo: 'bar'
     };
-    //Object.freeze(obj);
+    //Object.freeze(obj); 
+    //data()方法时用用obj.foo访问属性，data:obj 时通过foo直接访问。两者最好二选一
     new Vue({
         el: '#app-9',
         data() {
