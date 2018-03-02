@@ -2,7 +2,7 @@
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 
-*.html linguist-language=Vue
+* linguist-language=Vue
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
