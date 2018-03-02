@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h6>计算属性vs方法</h6>
+    <div id="app-1">
+        <p>Original message: "{{ message }}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        <p>Reversed message: "{{ reversedMessageM() }}"</p>
+    </div>
+
+    <h6>计算属性setter方法</h6>
+    <div id="app-2">
+       {{firstName+lastName}}
+       {{fullName}}
+    </div>
+
+    <h6>watch监听数据变化</h6>
+    <div id="app-3">
+      <p>Ask a yes/no question:<input type="text" v-model="question"/></p>
+      <div>{{answer}}</div>
+    </div>
+    
+</body>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/jquery"></script>
+<script type="text/javascript">
+    //计算属性vs方法 计算属性是基于它们的依赖进行缓存的
+    var app1 = new Vue({
+        el: '#app-1',
+        data: { message: 'hello' },
+        computed: {
+            reversedMessage: function () {
+                return this.message.split('').reverse().join('')
+            }
+        },
+        methods:{
+            reversedMessageM:function(){
+                return this.message.split('').reverse().join('')
+            }
+        }
+    })
+    console.log(app1.reversedMessage) // => 'olleH'
+    app1.message = 'Goodbye'
+    console.log(app1.reversedMessage) // => 'eybdooG'
+
+    //计算属性setter
+    var app2=new Vue({
+        el:'#app-2',
+        data:{
+            firstName: 'Foo',
+            lastName: 'Bar'
+        },
+        computed:{
+            fullName:{
+                get:function(){
+                    return this.firstName+' '+this.lastName;
+                },
+                set:function(newvaule){
+                    var names=newvaule.split(' ');
+                    this.firstName=names[0];
+                    this.lastName=names[names.length-1];
+                }
+            }
+        }
+    })
+    app2.firstName='hhh';
+    setTimeout(()=>app2.fullName = 'John Doe',2000);
+
+    //watch 侦听器监听数据变化
+    var app3=new Vue({
+        el:'#app-3',
+        data: {
+            question: '',
+            answer: 'I cannot give you an answer until you ask a question!'
+          },
+          watch:{
+              question:function(){
+                this.answer = 'Waiting for you to stop typing...'
+                this.getAnswer();
+              }
+          },
+          methods:{
+            getAnswer:function(){
+                if(this.question.indexOf('?')=='-1'){
+                    this.answer = 'Questions usually contain a question mark. ;-)'
+                    return
+                }
+                this.answer='think...';
+                var vm=this;
+                $.get('https://yesno.wtf/api',(response)=>vm.answer=response.answer,'json');
+            }
+          }
+    })
+
+</script>
+
+</html>
