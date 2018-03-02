@@ -6,6 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        h6{
+            margin: 10px 0px 0px 0px;
+        }
+        ul,ol {
+            margin: 10px 0px 0px 0px;
+            -webkit-margin-before: 0em;
+            -webkit-margin-after: 0em;
+        }
+        p{
+            margin: 0;
+        }
+        .block{
+            display:block
+        }
+    </style>
 </head>
 
 <body>
@@ -18,16 +34,31 @@
 
     <h6>计算属性setter方法</h6>
     <div id="app-2">
-       {{firstName+lastName}}
-       {{fullName}}
+        {{firstName+lastName}} {{fullName}}
     </div>
 
     <h6>watch监听数据变化</h6>
     <div id="app-3">
-      <p>Ask a yes/no question:<input type="text" v-model="question"/></p>
-      <div>{{answer}}</div>
+        <p>Ask a yes/no question:
+            <input type="text" v-model="question" />
+        </p>
+        <div>{{answer}}</div>
     </div>
-    
+
+    <h6> v-if key 、class、style 使用</h6>
+    <div id="app-4">
+        <span v-if="loginType === 'username'" v-bind:class="[blockClass]">
+            <label>Username</label>
+            <input placeholder="Enter your username" key="username-input">
+        </span>
+        <span v-else class='block'>
+            <label>Email</label>
+            <input placeholder="Enter your email address" key="email-input">
+        </span>
+        <!--style和class： block是vue实例中的data时不用加引号，加引号就是常量 -->
+        <button @click='toogleType' :style="[{display:'block'}]">Toogle login Type</button>
+    </div>
+
 </body>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/jquery"></script>
@@ -41,8 +72,8 @@
                 return this.message.split('').reverse().join('')
             }
         },
-        methods:{
-            reversedMessageM:function(){
+        methods: {
+            reversedMessageM: function () {
                 return this.message.split('').reverse().join('')
             }
         }
@@ -52,52 +83,66 @@
     console.log(app1.reversedMessage) // => 'eybdooG'
 
     //计算属性setter
-    var app2=new Vue({
-        el:'#app-2',
-        data:{
+    var app2 = new Vue({
+        el: '#app-2',
+        data: {
             firstName: 'Foo',
             lastName: 'Bar'
         },
-        computed:{
-            fullName:{
-                get:function(){
-                    return this.firstName+' '+this.lastName;
+        computed: {
+            fullName: {
+                get: function () {
+                    return this.firstName + ' ' + this.lastName;
                 },
-                set:function(newvaule){
-                    var names=newvaule.split(' ');
-                    this.firstName=names[0];
-                    this.lastName=names[names.length-1];
+                set: function (newvaule) {
+                    var names = newvaule.split(' ');
+                    this.firstName = names[0];
+                    this.lastName = names[names.length - 1];
                 }
             }
         }
     })
-    app2.firstName='hhh';
-    setTimeout(()=>app2.fullName = 'John Doe',2000);
+    app2.firstName = 'hhh';
+    setTimeout(() => app2.fullName = 'John Doe', 2000);
 
     //watch 侦听器监听数据变化
-    var app3=new Vue({
-        el:'#app-3',
+    var app3 = new Vue({
+        el: '#app-3',
         data: {
             question: '',
             answer: 'I cannot give you an answer until you ask a question!'
-          },
-          watch:{
-              question:function(){
+        },
+        watch: {
+            question: function () {
                 this.answer = 'Waiting for you to stop typing...'
                 this.getAnswer();
-              }
-          },
-          methods:{
-            getAnswer:function(){
-                if(this.question.indexOf('?')=='-1'){
+            }
+        },
+        methods: {
+            getAnswer: function () {
+                if (this.question.indexOf('?') == '-1') {
                     this.answer = 'Questions usually contain a question mark. ;-)'
                     return
                 }
-                this.answer='think...';
-                var vm=this;
-                $.get('https://yesno.wtf/api',(response)=>vm.answer=response.answer,'json');
+                this.answer = 'think...';
+                var vm = this;
+                $.get('https://yesno.wtf/api', (response) => vm.answer = response.answer, 'json');
             }
-          }
+        }
+    })
+
+    //v-if key 应用
+    var app4=new Vue({
+        el:'#app-4',
+        data:{
+            loginType:'username',
+            blockClass:'block'
+        },
+        methods:{
+            toogleType:function(){
+                this.loginType=(this.loginType=='username'?'email':'username')
+            }
+        }
     })
 
 </script>
