@@ -11,15 +11,18 @@
     <script src="main.js"></script> -->
     <script src="https://unpkg.com/vue"></script>
     <style type="text/css">
-        h6{
+        h6 {
             margin: 10px 0px 0px 0px;
         }
-        ul,ol {
+
+        ul,
+        ol {
             margin: 10px 0px 0px 0px;
             -webkit-margin-before: 0em;
             -webkit-margin-after: 0em;
         }
-        p{
+
+        p {
             margin: 0;
         }
     </style>
@@ -49,6 +52,9 @@
 
     <h6>v-for</h6>
     <div id="app-4">
+        <!-- v-for="(item,index) in list" -->
+        <!-- v-for="item of items" -->
+        <!-- "(value, key, index) in object"  遍历对象属性 -->
         <span v-for="item in list" style="display:block">
             {{item.text}}
         </span>

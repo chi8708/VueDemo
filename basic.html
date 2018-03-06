@@ -7,19 +7,23 @@
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
-        h6{
+        h6 {
             margin: 10px 0px 0px 0px;
         }
-        ul,ol {
+
+        ul,
+        ol {
             margin: 10px 0px 0px 0px;
             -webkit-margin-before: 0em;
             -webkit-margin-after: 0em;
         }
-        p{
+
+        p {
             margin: 0;
         }
-        .block{
-            display:block
+
+        .block {
+            display: block
         }
     </style>
 </head>
@@ -57,6 +61,12 @@
         </span>
         <!--style和class： block是vue实例中的data时不用加引号，加引号就是常量 -->
         <button @click='toogleType' :style="[{display:'block'}]">Toogle login Type</button>
+    </div>
+
+
+    <h6> 对象更改检测</h6>
+    <div id="app-5">
+        {{userProfile.name}}-{{userProfile.age}}
     </div>
 
 </body>
@@ -132,18 +142,43 @@
     })
 
     //v-if key 应用
-    var app4=new Vue({
-        el:'#app-4',
-        data:{
-            loginType:'username',
-            blockClass:'block'
+    var app4 = new Vue({
+        el: '#app-4',
+        data: {
+            loginType: 'username',
+            blockClass: 'block'
         },
-        methods:{
-            toogleType:function(){
-                this.loginType=(this.loginType=='username'?'email':'username')
+        methods: {
+            toogleType: function () {
+                this.loginType = (this.loginType == 'username' ? 'email' : 'username')
             }
         }
     })
+
+    //对象更改检测 动态添加对象属性
+    var app5 = new Vue({
+        el: '#app-5',
+        data: {
+            userProfile: {
+                name: 'Anika'
+            }
+        },
+    })
+    Vue.set(app5.userProfile, 'age', 27);
+    //等价以下
+    app5.$set(app5.userProfile, 'age', 27);
+    //添加多属性
+    app5.userProfile = Object.assign({}, app5.userProfile, {
+        age: 27,
+        favoriteColor: 'Vue Green'
+    })
+    console.log(app5.userProfile);
+    //[Vue warn]: Avoid adding reactive properties to a Vue instance or 
+    //its root $data at runtime - declare it upfront in the data option.
+    //下面报错 不要在根添加属性 或没有的对象添加属性 如app5或app5.aaa
+    // app5.$set(app5,'hhd','ggg');
+
+    
 
 </script>
 
