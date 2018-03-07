@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        h6 {
+            margin: 10px 0px 0px 0px;
+        }
+
+        ul,
+        ol {
+            margin: 10px 0px 0px 0px;
+            -webkit-margin-before: 0em;
+            -webkit-margin-after: 0em;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .block {
+            display: block
+        }
+    </style>
+</head>
+
+<body>
+    <h6>checkbox</h6>
+    <div id='app-1'>
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <label for="mike">Mike</label>
+        <br>
+        <span>Checked names: {{ checkedNames }}</span>
+    </div>
+
+    <h6>select</h6>
+    <div id='app-2'>
+        <select v-model="selected">
+            <option v-for="(item,index) in options" v-bind:id="'id'+index" v-bind:value="item.value">
+                {{item.text}}
+            </option>
+        </select>
+        <span>selected {{ selected }}</span>
+    </div>
+
+    <h6>true-value</h6>
+    <div id='app-3'>
+        <input type="checkbox" v-model="toggle" true-value="yes" false-value="no" />
+    </div>
+
+    <h6>lazy修饰符 在“change”时而非“input”时更新</h6>
+    <div id='app-4'>
+        <input v-model.lazy="msg" />
+        <p>{{msg}}</p>
+    </div>
+
+</body>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+
+    //checkbox
+    var app1 = new Vue({
+        el: '#app-1',
+        data: {
+            checkedNames: []
+        }
+    })
+
+    //select
+    var app2 = new Vue({
+        el: '#app-2',
+        data: {
+            selected: 'A',
+            options: [
+                { text: 'One', value: 'A' },
+                { text: 'Two', value: 'B' },
+                { text: 'Three', value: 'C' }
+            ]
+        }
+    })
+
+    //true-value
+    var app3 = new Vue({
+        el: '#app-3',
+        data: {
+            toggle: 'yes'
+        },
+        watch: {
+            toggle: function () {
+                console.log(app3.toggle);
+            }
+        }
+    })
+
+//修饰符
+    // lazy  在“change”（光标移开，数据变动）时而非“input”时更新
+    var app4 = new Vue({
+        el: '#app-4',
+        data: {
+            msg: ''
+        }
+    })
+
+    //.number  将用户的输入值转为数值类型
+    //.trim自动过滤用户输入的首尾空白字符
+    //组件可以和v-model一起使用
+
+</script>
+
+</html>
