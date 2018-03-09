@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        h6 {
+            margin: 10px 0px 0px 0px;
+        }
+
+        ul,
+        ol {
+            margin: 10px 0px 0px 0px;
+            -webkit-margin-before: 0em;
+            -webkit-margin-after: 0em;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .block {
+            display: block
+        }
+    </style>
+</head>
+
+<body>
+    <h6>全局注册</h6>
+    <div id="app-1">
+        <my-component></my-component>
+    </div>
+
+    <h6>局部注册</h6>
+    <div id="app-2">
+        <my-component2></my-component2>
+    </div>
+
+    <h6>组件data只能用函数</h6>
+    <div id="app-3">
+        <data-component></data-component>
+        <data-component></data-component>
+        <data-component></data-component>
+    </div>
+
+    <h6> prop 向下传递</h6>
+    <div id="app-4">
+        <child myMessage="hello"></child>
+    </div>
+
+    <h6> 动态prop</h6>
+    <div id="app-5">
+        <input type="text" v-model="parentMsg" />
+        <child v-bind:my-message="parentMsg"></child>
+    </div>
+
+    <h6> 属性验证</h6>
+    <div id="app-6">
+         <!-- 动态语法：v-bind:prop-c="1" 报错把1当做数值，字面量语法：
+                 prop-c="1"（正确） 会把1当做字符串-->
+          <!--同理 prop-d="11" 报错 propD要求数字 -->
+          <!-- 组件的属性不会显示到html上 如prop-c 手动会显示如a="ddd" -->
+        <val-prop a="ddd" v-bind:prop-c="'dddd'" v-bind:prop-d="222"></val-prop>
+    </div>
+</body>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+    //全局注册
+    var com1 = Vue.component('my-component', {
+        template:
+            '<div>\
+        hello Vue commponent\
+        </div>'
+    })
+
+    //注意确保在初始化根实例之前注册组件
+    var app1 = new Vue({
+        el: '#app-1'
+    });
+
+    //局部注册
+    var Child = {
+        template: '<div>A custom component!</div>'
+    }
+
+    var app2 = new Vue({
+        el: '#app-2',
+        components: {
+            // <my-component> 将只在父组件模板中可用
+            'my-component2': Child
+        }
+    })
+    //组件data只能返回函数，不能用具体值
+    var data = { counter: 0 };
+    var com3 = Vue.component('data-component', {
+        template: '<button v-on:click="counter+=1">{{counter}}</button>',
+        data: function () {
+            // return data;//由于这三个组件实例共享了同一个 data 对象，因此递增一个 counter 会影响所有组件！
+            return { counter: 0 };//三个组件实例不共享data counter独立。
+        }
+    });
+    var app3 = new Vue({
+        el: '#app-3'
+    })
+
+    // prop 向下传递，事件向上传递
+    //HTML 特性是不区分大小写的。所以，当使用的不是字符串模板时，
+    //camelCase (驼峰式命名)myMessage 的 prop 需要转换为相对应的 kebab-case (短横线分隔式命名)：my-message
+    var child = Vue.component('child', {
+        // 声明 props
+        props: ['myMessage'],
+        template: '<span>{{myMessage}}</span>'
+    });
+    var app4 = new Vue({
+        el: '#app-4'
+    })
+
+
+    //动态属性
+    var app5 = new Vue({
+        el: '#app-5',
+        data: {
+            parentMsg: ''
+        }
+    })
+
+    //属性验证
+    Vue.component('val-prop', {
+        props: {
+            // 基础类型检测 (`null` 指允许任何类型)
+            propA: Number,
+            // 可能是多种类型
+            propB: [String, Number],
+            // 必传且是字符串
+            propC: {
+                type: String,
+                required: true
+            },
+            // 数值且有默认值
+            propD: {
+                type: Number,
+                default: 100
+            },
+            // 数组/对象的默认值应当由一个工厂函数返回
+            propE: {
+                type: Object,
+                default: function () {
+                    return { message: 'hello' }
+                }
+            },
+            // 自定义验证函数
+            propF: {
+                validator: function (value) {
+                    return value > 10
+                }
+            }
+        }
+        , template: "<div>查看属性</div>"
+
+    })
+    var app6 = new Vue({
+        el: '#app-6'
+    })
+
+
+</script>
+
+</html>
