@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        h6 {
+            margin: 10px 0px 0px 0px;
+        }
+
+        ul,
+        ol {
+            margin: 10px 0px 0px 0px;
+            -webkit-margin-before: 0em;
+            -webkit-margin-after: 0em;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .block {
+            display: block
+        }
+    </style>
+</head>
+
+<body>
+    <h6>动态组件</h6>
+    <div id="app1">
+        <component v-bind:is="currentView">
+            <!-- 组件在 vm.currentview 变化时改变！ -->
+        </component>
+    </div>
+
+    <h6>内联模板</h6>
+    <div id='app2'>
+        <my-component inline-template id='com2'>
+            <div>
+                <p>这些将作为组件自身的模板。</p>
+                <p>而非父组件透传进来的内容。</p>
+            </div>
+        </my-component>
+    </div>
+
+    <h6>X-Template</h6>
+    <script type="text/x-template" id="hello-world-template">
+        <p>Hello hello x-template</p>
+    </script>
+    <div id='app3'>
+    <x-template></x-template>   
+    </div>
+   <!-- .vue 文件中使用 template 元素才是最佳实践 -->
+   <template id='tm-1'>
+       <span>.vue 文件中使用 template 元素才是最佳实践</span>
+   </template>
+</body>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+    //动态组件
+    var Home = {
+        template: '<p>Welcome home!</p>'
+    }
+
+    var app1 = new Vue({
+        el: '#app1',
+        data: {
+            currentView: Home
+        }
+    })
+    // 等价下面代码
+    // var vm = new Vue({
+    //     el: '#app1',
+    //     data: {
+    //         currentView: 'home'
+    //     },
+    //     components: {
+    //         home: { template: '<p>Welcome home!</p>' },
+    //         posts: { /* ... */ },
+    //         archive: { /* ... */ }
+    //     }
+    // })
+
+    //inline-template
+    var com2 = Vue.component('my-component', {
+        template: '#com2'
+    })
+    var app2 = new Vue({
+        el: '#app2'
+    })
+
+//x--template 
+      var com3 = Vue.component('x-template', {
+        template: '#hello-world-template'
+    })
+    var app2 = new Vue({
+        el: '#app3'
+    })
+</script>
+
+
+
+</html>
