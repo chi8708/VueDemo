@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        h6 {
+            margin: 10px 0px 0px 0px;
+        }
+
+        ul,
+        ol {
+            margin: 10px 0px 0px 0px;
+            -webkit-margin-before: 0em;
+            -webkit-margin-after: 0em;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .block {
+            display: block
+        }
+
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity .5s;
+        }
+
+        .fade-enter,
+        .fade-leave-to
+        /* .fade-leave-active below version 2.1.8 */
+
+            {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- transition基本使用 -->
+    <h6>transition基本使用</h6>
+    <div id='app1'>
+        <button @click="show=!show">toggle</button>
+        <transition name="fade">
+            <p v-show="show">hello</p>
+        </transition>
+    </div>
+
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+        var app1 = new Vue({
+            el: '#app1',
+            data: {
+                show: true
+            }
+        });
+    </script>
+</body>
+
+</html>
