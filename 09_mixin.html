@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+</head>
+
+<body>
+
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+
+    //mixin基础
+    let myMixin = {
+        created: function () {
+            this.hello();
+        },
+        methods: {
+            hello: () => { console.log('hello'); }
+        }
+    };
+
+    var Com1 = Vue.extend({
+        mixins: [myMixin]
+    });
+    let component = new Com1();
+
+    //选项合并
+    //比如，数据对象在内部会进行浅合并 (一层属性深度)，在和组件的数据发生冲突时以组件数据优先。
+    let mixin2={
+        data:function(){
+            return{
+                message:'hello mixin2',
+                name:'jack'
+            }
+        }
+    }
+
+    new Vue({
+        mixins:[mixin2],
+        data:function () {
+            return{
+                message:'hello mixin2...',//覆盖mixin的message
+                age:12  
+            }
+        },
+        created:function(){
+            console.log(this);
+            console.log(this.$data);
+        }
+    })
+
+    //全局汇入
+    // 为自定义的选项 'myOption' 注入一个处理器。
+    //谨慎使用全局混入对象，因为会影响到每个单独创建的 Vue 实例 
+    Vue.mixin({
+    created: function () {
+       
+        var myOption = this.$options.myOption
+        if (myOption) {
+        console.log(myOption)
+        }
+    }
+    })
+
+    new Vue({
+    myOption: 'hello!'
+    })
+    // => "hello!"
+</script>
+</body>
+
+</html>
