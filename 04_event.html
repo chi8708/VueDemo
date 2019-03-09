@@ -43,7 +43,7 @@
 
     <h6> exact按下ctrl在点击</h6>
     <div id="app-3">
-        <!-- 即使 Alt 或 Shift 被一同按下时也会触发 -->
+        <!-- 即使 Ctrl 或 Shift 被一同按下时也会触发 -->
         <button @click.ctrl="onClick">onClick</button>
 
         <!-- 有且只有 Ctrl 被按下的时候才触发 -->
@@ -111,7 +111,7 @@
             el: '#app-3',
             methods: {
                 onClick: function () {
-                    alert('ctrl 或   Alt 或 Shift 被一同按下时也会触发');
+                    alert('ctrl 或   Ctrl 或 Shift 被一同按下时也会触发');
                 },
                 onCtrlClick: function () {
                     alert('有且只有 Ctrl 被按下的时候才触发');
