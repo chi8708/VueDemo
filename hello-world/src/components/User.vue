@@ -43,10 +43,12 @@ export default {
     margin: 0 auto;
     list-style: none;
     flex-wrap:wrap;
+    padding-left: 0px;
     justify-content: center;
 }
 
 .li-user{
+    /* flex-basis:30%; */
    width: 30%;
    height: 100px;
    margin: 10px;
