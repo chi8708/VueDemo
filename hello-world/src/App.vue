@@ -21,7 +21,7 @@
     return { title:'hello Vue',mainTitle:'user'}
   },
   components: {
-    AppHeader,
+    AppHeader: AppHeader,
     AppFooter,
     User
   },
@@ -38,6 +38,4 @@
 </script>
 
 <style>
-#app {
-}
 </style>
