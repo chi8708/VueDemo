@@ -25,7 +25,7 @@ export default {
   height: 40px;
   background-color: blue;
   text-align: center;
-  position:absolute;
+  position:fixed;
   bottom: 0;
   width: 99%;
   line-height: 40px;
