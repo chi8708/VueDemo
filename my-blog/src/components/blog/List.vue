@@ -5,8 +5,8 @@
       <input type="text" id="txtSearch" v-model="searchtxt" placeholder="输入关键字搜索" />
       <!-- 也可以使用blogsFilter()方法 但要记得加括号 -->
       <div class="blog-item" v-for="(item, index) in blogsFilter" :key="index">
-        <h4 v-color>{{item.title}}</h4>
-        <div>{{item.body}}</div>
+        <h4 v-color>{{item.title.toUpperCase()}}</h4>
+        <div>{{item.body|bodySub}}</div>
       </div>
     </div>
   </div>
@@ -41,6 +41,11 @@ export default {
           bind(el){
               el.style.color="#"+(Math.random()*1000000).toString().substring(0,6);
           }
+      }
+  },
+  filters:{
+      bodySub(value){
+        return value.substring(0,200)+'...';
       }
   },
   created() {
