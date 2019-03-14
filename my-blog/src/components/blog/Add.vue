@@ -1,8 +1,9 @@
 <template>
   <div id="blogAdd">
    <div class="container">
-   <h3>添加博客</h3>
-    <form action id="addForm">
+   
+    <form action id="addForm" v-if="!isSubmited">
+      <h3>添加博客</h3>
       <div class="f-row">
         <Label>标题</Label>
         <input type="text" v-model="blog.title" required>
@@ -30,9 +31,13 @@
       </div>
     </form>
     
-    <h3>博客预览</h3>
+    <div v-if="isSubmited">
+      <h2>保存成功!</h2> 
+    </div>
     <hr>
+
     <div class="preview">
+      <h3>博客预览</h3>
       <Label>标题</Label>
       <div>{{blog.title}}</div>
       <Label>内容</Label>
@@ -59,7 +64,8 @@ export default {
       ],
       blog: {
         category: [] //不添加此属性category为bool
-      }
+      },
+      isSubmited:false
     };
   },
   computed: {
@@ -75,7 +81,8 @@ export default {
       this.$http
         .post("http://jsonplaceholder.typicode.com/posts", this.blog)
         .then((response) => {
-          console.log(response);
+         // console.log(response);
+          this.isSubmited=true;
         });
     }
   }
@@ -92,8 +99,8 @@ export default {
 }
 
 #addForm{
-  padding: 10px;
-  border: 1px solid #555;
+  /* padding: 10px;
+  border: 1px solid #555; */
 }
 
 input[type="text"],
@@ -121,5 +128,9 @@ textarea{
   color: white;
   width:80px;
   border-radius: 8px;
+}
+
+.preview{
+  border:1px dotted #bbb;
 }
 </style>

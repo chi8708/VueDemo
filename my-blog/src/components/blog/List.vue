@@ -6,7 +6,7 @@
       <!-- 也可以使用blogsFilter()方法 但要记得加括号 -->
       <div class="blog-item" v-for="(item, index) in blogsFilter" :key="index">
         <h4 v-color>{{item.title.toUpperCase()}}</h4>
-        <div>{{item.body|bodySub}}</div>
+        <article>{{item.body|bodySub}}</article>
       </div>
     </div>
   </div>
@@ -70,7 +70,8 @@ export default {
 .blog-item{
     padding: 5px;
     margin: 5px;
-    background-color:#c9c8c8;
+    background-color:#eee;
+    border: 1px dotted #bbb;
 }
 
 #txtSearch{
