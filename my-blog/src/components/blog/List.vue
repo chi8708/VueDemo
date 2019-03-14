@@ -5,7 +5,7 @@
       <input type="text" id="txtSearch" v-model="searchtxt" placeholder="输入关键字搜索" />
       <!-- 也可以使用blogsFilter()方法 但要记得加括号 -->
       <div class="blog-item" v-for="(item, index) in blogsFilter" :key="index">
-        <h4 v-color>{{item.title.toUpperCase()}}</h4>
+        <h4><router-link v-color  v-bind:to="'/blog/'+item.id">{{item.title.toUpperCase()}}</router-link> </h4>
         <article>{{item.body|bodySub}}</article>
       </div>
     </div>
