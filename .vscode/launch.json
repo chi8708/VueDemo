@@ -16,7 +16,7 @@
             "request": "launch",
             "name": "vuejs: chrome",
             "url": "http://localhost:8083",
-            "webRoot": "${workspaceFolder}/hello-world/src",
+            "webRoot": "${workspaceFolder}/my-blog/src",
             // "breakOnLoad": true,
             // "sourceMapPathOverrides": {
             //   "webpack:///./src/*": "${webRoot}/*"
