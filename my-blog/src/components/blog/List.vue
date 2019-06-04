@@ -1,7 +1,7 @@
 <template>
   <div id="blogAdd">
     <div class="container">
-      <h3>博客列表</h3>
+      <h3>博客列表-vuex {{num}}-{{this.$store.getters.getChangedNum}}</h3>
       <input type="text" id="txtSearch" v-model="searchtxt" placeholder="输入关键字搜索" />
       <!-- 也可以使用blogsFilter()方法 但要记得加括号 -->
       <div class="blog-item" v-for="(item, index) in blogsFilter" :key="index">
@@ -18,7 +18,8 @@ export default {
   data() {
     return {
       searchtxt:'',
-      blogs: []
+      blogs: [],
+      num:this.$store.state.changableNum
     };
   },
   computed:{

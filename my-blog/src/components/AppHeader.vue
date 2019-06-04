@@ -1,5 +1,8 @@
 <template>
     <div id="appHeader">
+        <span>{{this.$store.state.showFooter}}-{{this.$store.getters.getChangedNum}}</span>
+        <button @click="changNum()">修改num</button>
+         <button @click="changNum2()">异步修改num</button>
         <nav>
             <ul>
                 <li>
@@ -14,7 +17,15 @@
 </template>
 <script>
 export default {
-    name:'appHeader'
+    name:'appHeader',
+    methods: {
+        changNum:function(){
+            this.$store.commit('newNum',6)
+        },
+        changNum2:function(){
+            this.$store.dispatch('getNewNum',5)
+        }
+    },
 }
 </script>
 <style scoped>
