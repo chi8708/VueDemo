@@ -69,6 +69,10 @@
         {{userProfile.name}}-{{userProfile.age}}
     </div>
 
+    <h6> 对象更改检测2</h6>
+    <div id="app-6">
+        {{userProfile.name}}-{{userProfile.age}}
+    </div>
 </body>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/jquery"></script>
@@ -166,19 +170,29 @@
     })
     Vue.set(app5.userProfile, 'age', 27);
     //等价以下
-    app5.$set(app5.userProfile, 'age', 27);
+    app5.$set(app5.userProfile, 'age', 28);
     //添加多属性
-    app5.userProfile = Object.assign({}, app5.userProfile, {
-        age: 27,
-        favoriteColor: 'Vue Green'
-    })
+    // app5.userProfile = Object.assign({}, app5.userProfile, {
+    //     age: 28,
+    //     favoriteColor: 'Vue Green'
+    // })
     console.log(app5.userProfile);
     //[Vue warn]: Avoid adding reactive properties to a Vue instance or 
     //its root $data at runtime - declare it upfront in the data option.
     //下面报错 不要在根添加属性 或没有的对象添加属性 如app5或app5.aaa
     // app5.$set(app5,'hhd','ggg');
 
-    
+    var app6 = new Vue({
+        el: '#app-6',
+        data: {
+            userProfile: {
+                name: 'Anika'
+            }
+        },
+    })
+   // app6.userProfile.name="jack11";
+    //app6.$set(app6.userProfile,'age',20)
+    app6.userProfile.age=1;//初始没有的属性 只有加上一句或修改userProfile的一个初始属性值才会双向绑定，响应式
 
 </script>
 
