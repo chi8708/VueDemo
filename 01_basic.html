@@ -36,6 +36,8 @@
         <p>Reversed message: "{{ reversedMessageM() }}"</p>
     </div>
 
+    
+
     <h6>计算属性setter方法</h6>
     <div id="app-2">
         {{firstName+lastName}} {{fullName}}
@@ -72,6 +74,13 @@
     <h6> 对象更改检测2</h6>
     <div id="app-6">
         {{userProfile.name}}-{{userProfile.age}}
+    </div>
+
+    <h6>计算属性vs方法,修改data数据 html内的方法跟自己无关也会渲染</h6>
+    <div id="app-7">
+        <p>Original message: "{{ message }}"</p>
+        <p>"{{ getMethod() }}"</p>
+        <p>"{{ getMethod2() }}"</p>
     </div>
 </body>
 <script src="https://unpkg.com/vue"></script>
@@ -194,6 +203,30 @@
     //app6.$set(app6.userProfile,'age',20)
     app6.userProfile.age=1;//初始没有的属性 只有加上一句或修改userProfile的一个初始属性值才会双向绑定，响应式
 
+    var app7 = new Vue({
+        el: '#app-7',
+        data: {
+         message1:'ssjsjs',
+         age :12
+        },
+        computed:{
+            message(){
+                return this.message1
+            }
+        },
+        methods:{
+            getMethod(){
+                console.log("getMethod");
+                return this.age;
+            },
+            getMethod2(){
+                console.log("getMethod2");
+                return "1111";
+            }
+        }
+    })
+
+    app7.message1="message change";//会触发methods所有方法
 </script>
 
 </html>
