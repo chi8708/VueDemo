@@ -13,7 +13,7 @@ export default {
     },
     computed:{
         userName(){
-            return this.$route.params.username+this.$route.query.id;
+            return this.$route.params.username+(this.$route.query.id||'');
         }
     },
     mounted() {
