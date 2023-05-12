@@ -1,7 +1,7 @@
 <template lang="">
     <div>
-        首页
-        <router-link to="/user/dreal?id=123123">用户</router-link>
+        用户
+        {{userName}}
     </div>
 </template>
 <script>
@@ -12,6 +12,9 @@ export default {
         }
     },
     computed:{
+        userName(){
+            return this.$route.params.username+this.$route.query.id;
+        }
     },
     mounted() {
         
