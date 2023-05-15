@@ -2,6 +2,7 @@
     <div>
         用户
         {{ userName }}
+        <RouterView></RouterView>
     </div>
 </template>
 <script>
