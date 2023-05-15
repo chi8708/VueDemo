@@ -4,7 +4,11 @@ import { createRouter, createWebHashHistory, createWebHistory } from "vue-router
 import Home from "@/views/Home.vue";
 import About from "@/views/About.vue";
 import User from "@/views/User.vue";
+//路由嵌套
 import UserProfile from "@/views/UserProfile.vue";
+//命名路由
+import MoreView from "@/views/MoreView.vue";
+import LeftSidebar from "@/views/LeftSidebar.vue";
 // const UserProfile = {
 //   template: `
 //     <div class="user">
@@ -37,7 +41,16 @@ let routes = [
         component: UserProfile,
       }
     ],
-  }
+  },
+  {
+    // 命名视图 多个组件填充到多个route-view
+    path: "/moreview",
+    components: {
+      default:MoreView,
+      LeftSidebar
+    }
+  },
+
 ];
 
 // 路由器
@@ -46,4 +59,9 @@ const router = createRouter({
   routes
 });
 
+router.beforeEach((to, from) => {
+  // ...
+  // 返回 false 以取消导航
+ // return false
+})
 export default router;

@@ -2,7 +2,8 @@
     <div>
         用户
         {{ userName }}
-        <RouterView></RouterView>
+        <RouterView></RouterView> 
+        <!-- 路由嵌套显示其他组件 -->
     </div>
 </template>
 <script>
