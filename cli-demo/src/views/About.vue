@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div>
         关于
     </div>

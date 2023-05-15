@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 
 // 引入
 import Home from "@/views/Home.vue";
@@ -21,14 +21,14 @@ let routes = [
   {
     path: "/user/:username",
     name: 'User',
-    component: User,
+    component: User
   }
 ];
 
 // 路由器
 const router = createRouter({
-  history: createWebHistory(), // HTML5模式
-  routes,
+  history: createWebHashHistory(), // createWebHistory() HTML5模式不会触发beforeRouteUpdate等路由变化函数
+  routes
 });
 
 export default router;

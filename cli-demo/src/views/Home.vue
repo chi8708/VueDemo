@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div>
         首页
         <div>
