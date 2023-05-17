@@ -5,7 +5,7 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link><br />
   </div>
-
+  <!-- <div><button @click="AddNum">vuex修改值</button></div> -->
   <!-- <router-view> </router-view> -->
   <!--命名视图 显示多个view-->
   <router-view name="LeftSidebar"></router-view>
@@ -20,6 +20,11 @@ export default {
   components: {
     HelloWorld,
   },
+  methods: {
+    AddNum() {
+      this.$store.commit('newNum', 2);//父路由修改影响嵌套路由
+    }
+  }
 };
 </script>
 
