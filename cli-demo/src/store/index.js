@@ -1,6 +1,7 @@
 //参考 https://segmentfault.com/a/1190000015782272
 import Vue from 'vue';
 import Vuex from 'vuex';
+import moduleA from './moduleA'
 //Vue.use(Vuex);
 const state={//要设置的全局访问的state对象
     showFooter: true,
@@ -50,7 +51,10 @@ const store = new Vuex.Store({
     state,
     getters,
     mutations,
-    actions
+    actions,
+    modules: {
+        a: moduleA
+      }
 });
  
 export default store;

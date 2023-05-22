@@ -5,6 +5,8 @@
         <RouterView></RouterView>
         changableNum:{{ changableNum }}
         &nbsp;<button id="test" @click="AddNum(1)">修改值+1</button>
+        <!-- 模块化数据读取 -->
+        {{this.$store.state.a.moduleAName}}
         <!-- 路由嵌套显示其他组件 -->
     </div>
 </template>
