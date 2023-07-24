@@ -1,12 +1,19 @@
 <template>
+  <div>
+     <slot name="header"></slot>
     <p>
       Ask a yes/no question:
       <input v-model="question" />
     </p>
     <p>{{ answer }}</p>
-  </template>
+    <p>
+      <slot name="footer"></slot>
+    </p>
+  </div>
+ </template>
 <script lang="ts" setup>
 import { onMounted, ref, watch,getCurrentInstance  } from 'vue'
+import {name} from '../util/hello.js' //引入js模块报错，需要在src中新建shims-vue.d.ts 文件
 
 let question = ref('')
 const answer = ref('Questions usually contain a question mark. ;-)')
@@ -22,6 +29,10 @@ watch(question, async (newQuestion, oldQuestion) => {
       answer.value = 'Error! Could not reach the API. ' + error
     }
   }
+})
+
+onMounted(()=>{
+  console.log(name);
 })
 
 const instance=getCurrentInstance();

@@ -42,7 +42,14 @@
   <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
   <label for="mike">Mike</label>
   <h2>侦听器</h2>
-  <watch ref="watch1" title="1232" @enlarge-text="childCall"></watch>
+  <watch ref="watch1" title="1232" @enlarge-text="childCall">
+    <template #header>
+      parent header
+    </template>
+    <template v-slot:footer>
+      parent footer
+    </template>
+  </watch>
   <h2>ref</h2>
   <input type="text" ref="input">
   <button @click="childCall1">访问子组件实例</button>
@@ -156,5 +163,10 @@ function childCall(){
 function childCall1(){
   //watch1.value.instance.emit('enlarge-text');//触发事件
    watch1.value.emits('enlarge-text')//等价
+}
+
+//子组件调用父组件
+const childToParent=(s:string)=>{
+ console.log(`子组件通过parent调用,${s}`);
 }
 </script>

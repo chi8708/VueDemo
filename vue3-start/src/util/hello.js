@@ -1,0 +1,1 @@
+export const name='hello ts引用js';
