@@ -194,7 +194,7 @@ function childCall(){
 
 function childCall1(){
   //watch1.value.instance.emit('enlarge-text');//触发事件
-   watch1.value.emits('enlarge-text')//等价
+   watch1.value.emits('enlarge-text')//等价 触发子组件事件，正常情况该事件由子组件触发给父组件传值。 触发后调用childCall
 }
 
 //子组件调用父组件

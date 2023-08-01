@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 将父组件 template #header中的内容显示在子组件中 -->
      <slot name="header"></slot>
     <p>
       Ask a yes/no question:
