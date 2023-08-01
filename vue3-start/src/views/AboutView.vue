@@ -2,7 +2,8 @@
   <div class="about">
     <h1>响应式 <button @click="countAdd()">count1++</button></h1>
     {{ count1 }}
-    <p :age="person.age">{{ person.name + person.arr[0] }} </p>
+    <p :age="person.age"> <input type="text" v-model="person.name"> </p>
+    <p>person2 <input type="text" v-model="person2.name">  {{person2}}</p>
     <p>obj.foo:{{ obj.foo }} foot:{{ foo }}。 obj.bar:{{ obj.bar }},bar{{ bar }}</p>
 
   </div>
@@ -76,27 +77,58 @@
 <script lang='ts' setup>
 import watch from './01watch.vue'
 //响应式
-import { ref, type Ref, reactive, computed,onMounted } from "vue";
+import { ref, type Ref, reactive, computed,onMounted,toRef,toRefs } from "vue";
 let count1: Ref<number> = ref(0);
-const person = reactive({ name: 'jack', age: 18, arr: ['foo', 'bar'] });
+let person = reactive({ name: 'jack', age: 18, arr: ['foo', 'bar'] });
 const person2 = person;
 
 function countAdd(): void {
-  count1.value++;
+
   person2.age = 19;
   person2.name = "rose";
   person2.arr[0] = 'think';
+  person.age=20;
   foo = 2;
   bar.value = 3;
 }
+
+
+// toref 和toRefs使用
+const state = reactive({
+  foo: 1,
+  bar: 2,
+  obj1:{
+    name:'jack',
+    age:18
+  }
+})
+// 双向 ref，会与源属性同步
+let fooRef = toRef(state, 'foo')
+// 更改该 ref 会更新源属性
+fooRef.value++
+console.log(state.foo) // 2
+
+const {obj1}=toRefs(state);//将一个响应式对象转为块级普通对象，双向响应式
+const obj2=toRefs(state);//将一个响应式对象转为普通对象，双向响应式
+state.bar=3;
+state.obj1.age=12;
+obj1.value.name='jack ref';
+obj2.bar.value=5;
+obj2.obj1.value.age=19;
+console.log(state);
+console.log(obj1);
+console.log(obj2);
 
 //响应式2
 const obj = {
   foo: 1,
   bar: ref(2)
 }
-
 let { foo, bar } = obj
+bar.value++;
+foo++;//不会改变源属性
+console.log(obj);
+
 
 //计算属性
 const barRest = computed(() => {
