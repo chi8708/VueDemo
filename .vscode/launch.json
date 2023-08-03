@@ -29,6 +29,13 @@
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}/src",
             "pathMappings": [{ "url": "webpack:///src/", "path": "${webRoot}/" }]
-          }
+          },
+          {
+            "type": "chrome",
+            "request": "launch",
+            "name": "vue3-Start",
+            "url": "http://localhost:5173",
+            "webRoot": "${workspaceFolder}/vue3-start"
+        }
     ]
 }

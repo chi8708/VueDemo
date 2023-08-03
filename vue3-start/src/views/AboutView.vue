@@ -179,10 +179,11 @@ const checkedNames = ref([])
 // 必须和模板里的 ref 同名
 const input: any = ref(null)
 onMounted(() => {
+  console.log("parent component");
   input.value.focus()
 })
 
-const watch1: Ref<any> = ref(null)
+const watch1: Ref<any> = ref()
 onMounted(() => {
   //只能访问子组件中defineExpose
   watch1?.value.call();

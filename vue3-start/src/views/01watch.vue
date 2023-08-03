@@ -33,6 +33,7 @@ watch(question, async (newQuestion, oldQuestion) => {
 })
 
 onMounted(()=>{
+  console.log("child component");
   console.log(name);
 })
 
